@@ -1,1 +1,1 @@
-worker: python test_beka.python
+worker: python test_beka.py
