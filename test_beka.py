@@ -33,8 +33,6 @@ def start(message):
     init_user(message)
 
     chat_id = message.chat.id 
-    # if f"{chat_id}" not in mapping["start_id"]:
-    #     mapping['start_id'].update({f"{chat_id}": start_id})
 
 
 
@@ -96,32 +94,32 @@ def callback(call):
         calldata = json.loads(call.data)
         num_quest = int(calldata["num_quest"])
         command = int(calldata["command"])
+        if num_quest == key:
+            if  num_quest < 21:
 
-        if num_quest == key and  num_quest < 21:
-
-            var_answers = [
-                ["Отлично! 💅", "Йоу-йоу, круто!", "Неплохо! 🤔", "У тебя не все потеряно!"],
-                ["Оу 😦", "Не повезло тебе!", "Слегка прескорбно 🤧", "У тебя сложная ситуация"],
-                ["Удивляешь!", "Печально 😓", "Ты конечно даешь 😱", "Жуть 🫢" ],
-                ["О ужас! 😖", "Врагу не пожелаешь! 😟", "Твоя жизнь - к деньгам психологу 💸", "Жаль этого добряка 😬"],
-                ["С этим явный дисбаланс 😳", "Тут знать бы норму!😬", "Перебор! 🫣", "Не маловато? 😬"]
-            ]
-
-
-            which_list = command if key not in [15, 20] else 4
+                var_answers = [
+                    ["Отлично! 💅", "Йоу-йоу, круто!", "Неплохо! 🤔", "У тебя не все потеряно!"],
+                    ["Оу 😦", "Не повезло тебе!", "Слегка прескорбно 🤧", "У тебя сложная ситуация"],
+                    ["Удивляешь!", "Печально 😓", "Ты конечно даешь 😱", "Жуть 🫢" ],
+                    ["О ужас! 😖", "Врагу не пожелаешь! 😟", "Твоя жизнь - к деньгам психологу 💸", "Жаль этого добряка 😬"],
+                    ["С этим явный дисбаланс 😳", "Тут знать бы норму!😬", "Перебор! 🫣", "Не маловато? 😬"]
+                ]
 
 
+                which_list = command if key not in [15, 20] else 4
 
-        
 
-            bot.send_message(chat_id, var_answers[which_list][random.randint(0, 3)])
-            get_questions(call.message, (num_quest + 1))
 
-            mapping[f"{chat_id}"]["result"] += command
-            mapping[f"{chat_id}"]["key"] += 1
-        else: 
-            mapping[f"{chat_id}"]["result"] += command
-            results(chat_id)
+            
+
+                bot.send_message(chat_id, var_answers[which_list][random.randint(0, 3)])
+                get_questions(call.message, (num_quest + 1))
+
+                mapping[f"{chat_id}"]["result"] += command
+                mapping[f"{chat_id}"]["key"] += 1
+            else: 
+                mapping[f"{chat_id}"]["result"] += command
+                results(chat_id)
 
 
 def get_questions(message, num_quest):
