@@ -22,7 +22,7 @@ def init_user(message):
         "start_id": start_id
     }
 
-    if f"{chat_id}" in mapping:
+    if f"{chat_id}" in mapping and "start_id" in mapping[f"{chat_id}"]:
         user["start_id"] = mapping[f"{chat_id}"]["start_id"]
     
     mapping[f"{chat_id}"] = user
