@@ -81,7 +81,7 @@ def callback(call):
 
         bot.delete_message(chat_id, start_id)
         
-        mapping[f"{chat_id}"]["start_id"].pop(f"{chat_id}", None)
+        del mapping[f"{chat_id}"]["start_id"]
 
 
         bot.send_message(chat_id, "Ну и иди нахуй!")
