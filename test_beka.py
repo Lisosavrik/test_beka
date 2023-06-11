@@ -43,7 +43,7 @@ def start(message):
     markup = types.InlineKeyboardMarkup()
     mar1 = types.InlineKeyboardButton("Ставить себе диагноз 🥸", callback_data="explanation")
     mar2 = types.InlineKeyboardButton("Обратиться к психотерапевту 🌚", callback_data="fack_you")
-    markup.row(mar1, mar2)
+    markup.add(mar1, mar2, row_width=1)
     bot.send_message(chat_id,  f'{text1}', reply_markup=markup)
 
 @bot.callback_query_handler(func= lambda call: True)
@@ -51,7 +51,7 @@ def callback(call):
     chat_id = call.message.chat.id
     global mapping
     key = mapping[f"{chat_id}"]["key"]
-    start_id = mapping[f"{chat_id}"]["start_id"]
+    start_id = mapping[f"{chat_id}"].get("start_id")
 
 
     if call.data == "explanation":
@@ -78,8 +78,8 @@ def callback(call):
             i += 1
 
         bot.delete_message(chat_id, start_id)
-        
-        del mapping[f"{chat_id}"]["start_id"]
+        if mapping[f"{chat_id}"].get("start_id") != None:
+            del mapping[f"{chat_id}"]["start_id"]
 
 
         bot.send_message(chat_id, "Ну и иди нахуй!")
