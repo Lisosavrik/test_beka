@@ -1,2 +1,3 @@
 venv
 telegram.code-workspace
+.env

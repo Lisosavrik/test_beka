@@ -5,9 +5,22 @@ import time
 import random
 from file_utils import get_file_json
 
+import dotenv
+import os
+
+dotenv.load_dotenv()
+
+TELEGRAM_BOT_KEY = os.getenv("TELEGRAM_BOT_KEY", None)
+if TELEGRAM_BOT_KEY == None:
+    raise(
+        EnvironmentError(
+            "environment variable TELEGRAM_BOT_KEY is not set!\n" +
+            "create a .env file if developing in local"
+        )
+    )
 
 
-bot = telebot.TeleBot('6170027400:AAHqHQ08cQiSD4fD4MkVzlqXMc-VIPXBIoQ')
+bot = telebot.TeleBot(TELEGRAM_BOT_KEY)
 _data = get_file_json("data.json")
 mapping = {}
 
